@@ -5,7 +5,7 @@ Muilti-GPU-Fine-Tuning by X-tunter
 以让 Llama3-8B-Instruct 模型获得智能体能力，调用function tools能力提升。
 ## 目录
 - [1. 微调 Llama3-8B-Instruct 模型](#1-微调-llama3-8b-instruct-模型)
-- [2. 接入 FastGPT](#2-接入-fastgpt)
+- [2. 微调后模型下载并接入FastGPT](#2-微调后模型下载并接入FastGPT)
 ## 1. 微调 Llama3-8B-Instruct 模型
 ### 1.1 创建notebook
   - 在超算互联网汇视威AI训练平台，模型调试中创建一个notebook
@@ -239,6 +239,7 @@ model = dict(
         task_type='CAUSAL_LM'))
 ```
 ### 1.5.3 数据集设置
+```
 #######################################################################
 #                      PART 3  Dataset & Dataloader                   #
 #######################################################################
@@ -433,11 +434,12 @@ log_processor = dict(by_epoch=False)
 ```python
 bash run.sh llama3_8b_instruct_qlora_agentflan_3e.py 6
 ```
-出现以下类似代码表明训练顺利进行  
+出现以下类似代码表明训练顺利进行
+```  
 11/19 12:50:41 -mmengine -lNFO -Saving checkpoint at 2000 iterations11/19 12:57:36 - mmengine - lN0 - lter(trailn) [20104296] r: 1.1524e-04 eta: 23:14:06 time: 81.4554 data time:45.8042 memory: 6910 los:0.3550 tlops:3.2676 tokens per sec: 48.6446
 [2024-11-19 13:01:10.055! WARNING! stage3.py.1998:stepl4 pvtorch alocator cache fushes since last step.this happens when there is high memory presure and is detimen  
 平台上已经训练好模型，放在huggingface-cache数据下，挂载该数据后目录位于：/dataset/llama3-8b-functioncall-ft/agent-flan
-
+```
 ### 1.7模型转换
 创建一个新的notebook，进行到notebook，打开终端执行命令
 这里训练到4296步取中间结果查看：
@@ -517,8 +519,8 @@ with torch.no_grad():
 ![微调前](.images/微调前，没有准确给出function所需的Json格式参数.png)
 微调后，可以正确给出json格式function参数 
 ![微调后](.images/微调后，可以正确给出json格式function参数：.png)
-## 2.微调后模型下载并接入FastGPT
-### 2.1下载模型
+## 2. 微调后模型下载并接入FastGPT
+### 2.1 下载模型
 在平台上获取文件的下载链接，接下来就可以使用wget或者直接使用浏览器下载
 ```python
 # 在自己的机器上建立一个文件夹，用于放置模型
@@ -562,9 +564,9 @@ sudo docker run -d \
 11. xinference-local -H 0.0.0.0：在容器启动后执行的命令，xinference-local 是 xinference 的本地运行模式，-H 0.0.0.0 指定服务监听所有网络接口。
 
 打开xinference界面，找到“llama-3-instruct”模型，如下所示：
-![1](.images/11.png)
-![2](.images/12.png)
-![3](.images/11.png)
+![1](images/11.png)
+![2](images/12.png)
+![3](images/11.png)
 ### 2.3接入FastGPT
 安装fastgpt
 1. 启动 docker
