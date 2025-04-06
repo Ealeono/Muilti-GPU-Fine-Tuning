@@ -516,9 +516,9 @@ with torch.no_grad():
     print(tokenizer.decode(merged_model.generate(**model_input, max_new_tokens=256)[0], skip_special_tokens=True))
 ```
 微调前，没有准确给出function需要的json格式参数
-![微调前](.images/微调前，没有准确给出function所需的Json格式参数.png)
+![微调前](images/微调前，没有准确给出function所需的Json格式参数.png)
 微调后，可以正确给出json格式function参数 
-![微调后](.images/微调后，可以正确给出json格式function参数：.png)
+![微调后](images/微调后，可以正确给出json格式function参数：.png)
 ## 2. 微调后模型下载并接入FastGPT
 ### 2.1 下载模型
 在平台上获取文件的下载链接，接下来就可以使用wget或者直接使用浏览器下载
